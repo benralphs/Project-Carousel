@@ -9,6 +9,7 @@
 }
 .carousel-out:
 {
+	height: 400px;
 	padding-left: 450px;
 	margin-left: 250px;
 }
