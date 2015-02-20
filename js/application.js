@@ -70,8 +70,7 @@ var intervalId = window.setInterval(slide, 5000);
         var currentImage = $(".image-up");
         var nextImage = currentImage.prev();
 
-        if(nextImage.length == 0)
-        {
+        if(nextImage.length == 0){
             nextImage = $(".carousel-in img").last(l);
         }
         currentImage.removeClass("image-up").addClass("image-down").css("z-index", -10);
