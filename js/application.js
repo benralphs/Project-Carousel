@@ -1,42 +1,47 @@
 $(document).ready(function(){
-		
-		function slide(){
 
-  $(".nextIndicator").click();
-}
-var intervalId = window.setInterval(slide, 5000);
 
-	$(".nextIndicator").on("click", function(e){
+        
+    $(".nextIndicator").on("click", function(e){
 
-		var currentImage = $(".image-up");
-		var nextImage = currentImage.next();
-	
+        var currentImage = $(".image-up");
+        var nextImage = currentImage.next();
 
-	
-		if(nextImage.length == 0)
-		{
-			nextImage = $(".carousel-in img").first();
-		}
+        $(function(){
+    $('.carousel-in img:gt(0)').hide();
+    setInterval(function(){
+      $('.carousel-in :first-child').fadeOut()
+         .next('img').fadeIn()
+         .end().appendTo('.carousel-in');}, 
+      3000);
+    });
 
-		currentImage.removeClass("image-up").addClass("image-down").css("z-index", -10);
-		nextImage.addClass("image-up").removeClass("image-down").css("z-index", 20);
-		$(".carousel-in img").not([currentImage, nextImage]).css("z-index", 1);
+    
+        if(nextImage.length == 0)
+        {
+            nextImage = $(".carousel-in img").first();
+        }
 
-		e.preventDefault();
-	});
+        currentImage.removeClass("image-up").addClass("image-down").css("z-index", -10);
+        nextImage.addClass("image-up").removeClass("image-down").css("z-index", 20);
+        $(".carousel-in img").not([currentImage, nextImage]).css("z-index", 1);
 
-	$(".previousIndicator").on("click", function(l){
-		var currentImage = $(".image-up");
-		var nextImage = currentImage.prev();
+        e.preventDefault();
+    });
 
-		if(nextImage.length == 0)
-		{
-			nextImage = $(".carousel-in img").last(l);
-		}
-		currentImage.removeClass("image-up").addClass("image-down").css("z-index", -10);
-		nextImage.addClass("image-up").removeClass("image-down").css("z-index", 20);
-		$(".carousel-in img").not([currentImage, nextImage]).css("z-index", 1);
+    $(".previousIndicator").on("click", function(l){
+        var currentImage = $(".image-up");
+        var nextImage = currentImage.prev();
 
-		l.preventDefault();
-	})
+        if(nextImage.length == 0)
+        {
+            nextImage = $(".carousel-in img").last(l);
+        }
+        currentImage.removeClass("image-up").addClass("image-down").css("z-index", -10);
+        nextImage.addClass("image-up").removeClass("image-down").css("z-index", 20);
+        $(".carousel-in img").not([currentImage, nextImage]).css("z-index", 1);
+
+        l.preventDefault();
+    })
+
 });
