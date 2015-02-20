@@ -1,47 +1,48 @@
-;(function(sliding){
-    sliding(jQuery);
-})(function($){
+$(document).ready(function(){
 
 
-    var slider = (function(element, settings){
-        var instanceId = 0;
-        function _sliding(element, settings){
-            this.default = {};
-            this.settings = $.extend({},this.this.default,settings);
-            this.initials = {};
-            $.extend(this,this.initials);
-            this.$el = (element);
-            this.changeSlide = $.proxy(this.changeSlide,this);
-            this.init();
-            this.instanceId = instanceId++;
-            return _sliding;
+        
+    $(".nextIndicator").on("click", function(e){
 
+        var currentImage = $(".image-up");
+        var nextImage = currentImage.next();
+
+        $(function(){
+    $('.carousel-in img:gt(0)').hide();
+    setInterval(function(){
+      $('.carousel-in :first-child').fadeOut()
+         .next('img').fadeIn()
+         .end().appendTo('.carousel-in');}, 
+      3000);
+    });
+
+    
+        if(nextImage.length == 0)
+        {
+            nextImage = $(".carousel-in img").first();
         }
+
+        currentImage.removeClass("image-up").addClass("image-down").css("z-index", -10);
+        nextImage.addClass("image-up").removeClass("image-down").css("z-index", 20);
+        $(".carousel-in img").not([currentImage, nextImage]).css("z-index", 1);
+
+        e.preventDefault();
+    });
+
+    $(".previousIndicator").on("click", function(l){
+        var currentImage = $(".image-up");
+        var nextImage = currentImage.prev();
+
+        if(nextImage.length == 0)
+        {
+            nextImage = $(".carousel-in img").last(l);
+        }
+        currentImage.removeClass("image-up").addClass("image-down").css("z-index", -10);
+        nextImage.addClass("image-up").removeClass("image-down").css("z-index", 20);
+        $(".carousel-in img").not([currentImage, nextImage]).css("z-index", 1);
+
+        l.preventDefault();
     })
-})();
-slider.prototype.init =function(){};
-slider.prototype.cssTrans =function(){};
-slider.prototype.build = function(){};
-slider.prototype.activate = function(){};
-slider.prototype.events = function(){};
-slider.prototype.clearTimer = function(){};
-slider.prototype.initTimer = function(){};
-slider.prototype.startTimer = function(){};
-slider.prototype.changeSlide = function(event){
-    slider.prototype.cssAnim = function(nextSlide, direction){};
-    slider.prototype.jsAnim = function(nextSlide, direction){};
-    slider.prototype.updateIndi = function(){};
 
-
-    $.fn.slider = function(options){
-        return this.each(function(index, el){
-            el.slider = new slider(el, options);
-        });
-    };
-};
-var args = {
-    arrowRight: '.nextIndicator',
-    arrowLeft: '.previousIndicatoe',
-    speed : 1000, 
-}
-$('.carousel-out').slider(args);
+    });
+});
